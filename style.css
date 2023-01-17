@@ -18,6 +18,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0px 22px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 header img {
@@ -29,6 +30,32 @@ header ion-icon {
     font-size: 45px;
 }
 
+.msg:first-child {
+    margin-top: 106px;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.msg {
+    width: 100%;
+    background-color: white;
+    min-height: 40px;
+    max-height: fit-content;
+    border-radius: 2px;
+    text-align: left;
+    padding: 0 8px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.msg .horario {
+    color: #aaa;
+}
 
 footer {
     background-color: white;
@@ -42,6 +69,7 @@ footer {
     align-items: center;
     justify-content: space-between;
     padding: 0 18px;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.05);
 }
 
 footer input {
