@@ -6,6 +6,10 @@ body {
     background-color: #F3F3F3;
 }
 
+strong {
+    font-weight: 700;
+}
+
 header {
     background-color: white;
     width: 100%;
@@ -34,18 +38,18 @@ header ion-icon {
     margin-top: 106px;
 }
 
-section {
-    background-color: green;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.msg:last-child {
+    margin-bottom: 106px;
 }
 
+section {}
+
 ul {
-    background-color: red;
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+
     gap: 4px;
 
 }
@@ -63,9 +67,19 @@ ul {
     align-items: center;
 }
 
+.fundoCinza {
+    background-color: #cdcdcd;
+}
+
+.fundoVermelho {
+    background-color: #FFDEDE;
+}
+
 .msg .horario {
     color: #aaa;
 }
+
+.msg .from {}
 
 footer {
     background-color: white;
@@ -99,6 +113,11 @@ footer input {
     opacity: 1;
 
     color: #000000;
+}
+
+button {
+    background-color: white;
+    border: none;
 }
 
 footer ion-icon {

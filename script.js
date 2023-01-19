@@ -1,8 +1,5 @@
 //Cadastro do usuário --------------------
 
-let resposta;
-let erro;
-
 cadastrarUsuario();
 
 function cadastrarUsuario() {
@@ -16,15 +13,17 @@ function cadastrarUsuario() {
     function deuCerto(resposta) {
         console.log(resposta.data);
         console.log("Voltou a resposta");
-
         exibirMensagem();
+        // setInterval(() => {
+        //     exibirMensagem()
+        // }, 3000);
     }
     console.log("Requisição enviada");
 
     function tratarErro(erro) {
         console.log("Status code: " + erro.response.status);
         console.log("Mensagem de erro: " + erro.response.data);
-        alert("temos um erro em castrarUsuario");
+        alert("temos um erro em cadastrarUsuario");
     }
 }
 
@@ -40,18 +39,45 @@ function exibirMensagem() {
 
         let balaoMsg = document.querySelector("ul");
 
+
         for (i = 0; i < resposta.data.length; i++) {
 
             let balao = resposta.data[i];
 
-            balaoMsg.innerHTML += `
-            <li class="msg">
-                <span class="horario">${balao.time}</span>
-                <span class="from"><b>${balao.from}</b></span>
-                <span class="texto">${balao.text}</span>
-            </li>
-            `
+
+            if (balao.type === "status") {
+                balaoMsg.innerHTML += `
+                <li class="msg fundoCinza">
+                    <span class="horario">${balao.time}</span>
+                    <span class="from"><strong>${balao.from}</strong></span>
+                    <span class="texto">${balao.text}</span>
+                </li>
+                `
+            } else if (balao.to === "Reservadamente") {
+                balaoMsg.innerHTML += `
+                <li class="msg fundoVermelho">
+                    <span class="horario">${balao.time}</span>
+                    <span class="from"><strong>${balao.from}</strong></span>
+                    <span class="texto">${balao.text}</span>
+                </li>
+                `
+            }
+            else {
+                balaoMsg.innerHTML += `
+                <li class="msg">
+                    <span class="horario">${balao.time}</span>
+                    <span class="from"><strong>${balao.from}</strong></span>
+                    <span class="texto">${balao.text}</span>
+                </li>
+                `
+            }
         }
+
+        let todasMsg = [...document.querySelectorAll("li")];
+        console.log(todasMsg);
+        let ultimaMsg = todasMsg.at(-1);
+        ultimaMsg.scrollIntoView();
+        console.log(ultimaMsg);
     }
 
     function tratarErro(erro) {
