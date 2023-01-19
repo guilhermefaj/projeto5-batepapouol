@@ -2,7 +2,6 @@
 
 let resposta;
 let erro;
-let horario;
 
 cadastrarUsuario();
 
@@ -25,10 +24,8 @@ function cadastrarUsuario() {
     function tratarErro(erro) {
         console.log("Status code: " + erro.response.status);
         console.log("Mensagem de erro: " + erro.response.data);
-        alert("temos um erro");
+        alert("temos um erro em castrarUsuario");
     }
-
-
 }
 
 
@@ -43,28 +40,23 @@ function exibirMensagem() {
 
         let balaoMsg = document.querySelector("ul");
 
-        for (let i = 0; i < resposta.data.length; i++) {
+        for (i = 0; i < resposta.data.length; i++) {
 
             let balao = resposta.data[i];
 
-            mensagem = resposta.data.text;
-            horario = resposta.data.time;
-            from = resposta.data.from;
-
-            balaoMsg.innerHTML = `
+            balaoMsg.innerHTML += `
             <li class="msg">
                 <span class="horario">${balao.time}</span>
-                <span class="from">${balao.from}</span>
+                <span class="from"><b>${balao.from}</b></span>
                 <span class="texto">${balao.text}</span>
             </li>
             `
-            balaoMsg++
         }
-
     }
+
     function tratarErro(erro) {
         console.log("Status code: " + erro.response.status);
         console.log("Mensagem de erro: " + erro.response.data);
-        alert("temos um erro");
+        alert("temos um erro em ExibirMensagem");
     }
 }
