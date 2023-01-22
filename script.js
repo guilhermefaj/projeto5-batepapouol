@@ -2,7 +2,6 @@ const usuario = {
     nome: ""
 };
 
-
 cadastrarUsuario();
 
 function cadastrarUsuario() {
@@ -45,7 +44,6 @@ function cadastrarUsuario() {
         function falhaConexao(erro) {
             console.log("Status code: " + erro.response.status);
             console.log("Mensagem de erro: " + erro.response.data);
-            window.location.reload();
         }
     }
 }
@@ -122,6 +120,7 @@ function exibirMensagem() {
 
 function enviarMensagem() {
 
+
     let mensagem = document.getElementById("mensagem");
     let dado = {
         from: usuario.nome,
@@ -146,5 +145,6 @@ function enviarMensagem() {
     function tratarErro(erro) {
         console.log("Status code: " + erro.response.status);
         console.log("Mensagem de erro: " + erro.response.data);
+        window.location.reload();
     }
 }
