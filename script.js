@@ -2,6 +2,8 @@ const usuario = {
     nome: ""
 };
 
+let erroConexao = false;
+
 cadastrarUsuario();
 
 function cadastrarUsuario() {
@@ -40,17 +42,21 @@ function cadastrarUsuario() {
 
         function conexaoAtiva(resposta) {
             console.log("Usuário ativo");
+            erroConexao = false;
         }
         function falhaConexao(erro) {
             console.log("Status code: " + erro.response.status);
             console.log("Mensagem de erro: " + erro.response.data);
             alert("temos um erro em manterConexao");
+            erroConexao = true;
         }
     }
 }
 
 
 //Exibir Mensagem na tela ---------------------
+
+const listaMensagens = [];
 
 function exibirMensagem() {
 
@@ -67,9 +73,10 @@ function exibirMensagem() {
 
         for (i = 0; i < resposta.data.length; i++) {
 
+
             let balao = resposta.data[i];
 
-
+            // if(listaMensagens.includes(balao))
 
             if (balao.type === "status") {
                 balaoMsg.innerHTML += `
@@ -79,7 +86,7 @@ function exibirMensagem() {
                     <span class="texto">${balao.text}</span>
                 </li>
                 `
-            } else if (balao.to === "Reservadamente") {
+            } else if (balao.to === usuario.nome || (balao.from === usuario.nome && balao.to !== "Todos")) {
                 balaoMsg.innerHTML += `
                 <li data-test="message" class="msg fundoVermelho">
                     <span class="horario">${balao.time}</span>
@@ -117,6 +124,11 @@ function exibirMensagem() {
 //Enviar mensagem para o servidor ------------------
 
 function enviarMensagem() {
+
+    if (erroConexao) {
+        window.location.reload();
+        return;
+    }
 
     let mensagem = document.getElementById("mensagem");
     let dado = {
