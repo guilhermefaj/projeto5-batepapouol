@@ -2,7 +2,6 @@ const usuario = {
     nome: ""
 };
 
-let erroConexao = false;
 
 cadastrarUsuario();
 
@@ -42,13 +41,11 @@ function cadastrarUsuario() {
 
         function conexaoAtiva(resposta) {
             console.log("Usuário ativo");
-            erroConexao = false;
         }
         function falhaConexao(erro) {
             console.log("Status code: " + erro.response.status);
             console.log("Mensagem de erro: " + erro.response.data);
-            alert("temos um erro em manterConexao");
-            erroConexao = true;
+            window.location.reload();
         }
     }
 }
@@ -124,11 +121,6 @@ function exibirMensagem() {
 //Enviar mensagem para o servidor ------------------
 
 function enviarMensagem() {
-
-    if (erroConexao) {
-        window.location.reload();
-        return;
-    }
 
     let mensagem = document.getElementById("mensagem");
     let dado = {
