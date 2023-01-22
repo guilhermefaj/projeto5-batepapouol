@@ -1,10 +1,3 @@
-// document.('keydown', (event) => {
-//     const keyName = event.key;
-//     console.log(keyName);
-// });
-
-//Cadastro do usuário --------------------
-
 const usuario = {
     nome: ""
 };
@@ -16,11 +9,12 @@ function cadastrarUsuario() {
     const dados = { name: usuario.nome };
     const requisicaoNome = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants", dados);
 
+    console.log(dados.from);
+
     requisicaoNome.then(deuCerto);
     requisicaoNome.catch(tratarErro);
 
     function deuCerto(resposta) {
-        console.log(resposta.data);
         console.log("Voltou a resposta");
         exibirMensagem();
         setInterval(() => {
@@ -31,9 +25,12 @@ function cadastrarUsuario() {
     console.log("Requisição enviada");
 
     function tratarErro(erro) {
-        console.log("Status code: " + erro.response.status);
-        console.log("Mensagem de erro: " + erro.response.data);
-        cadastrarUsuario();
+        if (erro.response.status === 400) {
+            alert("Nome de usuário já cadastrado! Por favor, tente um novo nick.");
+            cadastrarUsuario();
+        }
+
+
     }
 
     function manterConexao() {
@@ -45,7 +42,9 @@ function cadastrarUsuario() {
             console.log("Usuário ativo");
         }
         function falhaConexao(erro) {
-            console.log("Falha de conexão");
+            console.log("Status code: " + erro.response.status);
+            console.log("Mensagem de erro: " + erro.response.data);
+            alert("temos um erro em manterConexao");
         }
     }
 }
@@ -60,14 +59,16 @@ function exibirMensagem() {
     requisicaoMensagem.catch(tratarErro);
 
     function processarResposta(resposta) {
-        console.log(resposta.data);
 
         let balaoMsg = document.querySelector("ul");
+        console.log(balaoMsg);
 
+        balaoMsg.innerHTML = ""
 
         for (i = 0; i < resposta.data.length; i++) {
 
             let balao = resposta.data[i];
+
 
 
             if (balao.type === "status") {
@@ -100,10 +101,8 @@ function exibirMensagem() {
 
         function rolagemAutomatica() {
             let todasMsg = [...document.querySelectorAll("li")];
-            console.log(todasMsg);
             let ultimaMsg = todasMsg.at(-1);
             ultimaMsg.scrollIntoView();
-            console.log(ultimaMsg);
         }
     }
 
@@ -114,9 +113,11 @@ function exibirMensagem() {
     }
 }
 
+
 //Enviar mensagem para o servidor ------------------
 
 function enviarMensagem() {
+
     let mensagem = document.getElementById("mensagem");
     let dado = {
         from: usuario.nome,
@@ -134,6 +135,7 @@ function enviarMensagem() {
 
     function deuCerto(resposta) {
         console.log(resposta.data);
+        exibirMensagem();
         mensagem.value = "";
     }
 
